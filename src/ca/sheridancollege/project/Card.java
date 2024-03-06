@@ -11,32 +11,56 @@ package ca.sheridancollege.project;
  *
  * @author nancy
  */
-public abstract class Card {
-    //default modifier for child classes
-    private final String suit;
-    private final int value;
 
-    public Card(String suit, int value) {
+/**
+ * A class that models a card for a Blackjack game.
+ */
+public class Card {
+    private final String suit;
+    private final String rank;
+
+    public Card(String suit, String rank) {
         this.suit = suit;
-        this.value = value;
+        this.rank = rank;
     }
 
     public String getSuit() {
         return suit;
     }
 
-    public int getValue() {
-        return value;
+    public String getRank() {
+        return rank;
     }
 
-
     /**
-     * Students should implement this method for their specific children classes
-     *
-     * @return a String representation of a card. Could be an UNO card, a regular playing card etc.
+     * Returns the value of the card in Blackjack.
+     * @return the value of the card.
      */
+    public int getValue() {
+        switch (rank) {
+            case "Ace":
+                return 11;
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+            case "10":
+                return Integer.parseInt(rank);
+            case "Jack":
+            case "Queen":
+            case "King":
+                return 10;
+            default:
+                throw new IllegalArgumentException("Invalid card rank: " + rank);
+        }
+    }
+
     @Override
-    public abstract String toString();
-
-
+    public String toString() {
+        return rank + " of " + suit;
+    }
 }
